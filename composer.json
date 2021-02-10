@@ -1,0 +1,38 @@
+{
+    "name": "laravelroad/jetgen",
+    "description": "CRUD Generator for Laravel Jetstream",
+    "keywords": ["RAD", "Laravel", "Generator", "Jetstream"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pedro Augusto",
+            "email": "pedro.e@ufv.br"
+        }
+    ],
+    "require": {
+        "illuminate/console": "^8.0",
+        "illuminate/filesystem": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.7",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelRoad\\JetGen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelRoad\\JetGen\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelRoad\\JetGen\\JetGenServiceProvider"
+            ]
+        }
+    }
+}
