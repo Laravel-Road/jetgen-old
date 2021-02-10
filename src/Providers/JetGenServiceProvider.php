@@ -4,6 +4,7 @@ namespace LaravelRoad\JetGen\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use LaravelRoad\JetGen\Commands\MigrationCommand;
 
 class JetGenServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -22,10 +23,18 @@ class JetGenServiceProvider extends ServiceProvider implements DeferrableProvide
             self::ROOT_PATH.'/config/jetgen.php',
             'jetgen'
         );
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MigrationCommand::class,
+            ]);
+        }
     }
 
     public function provides()
     {
-        return [];
+        return [
+            MigrationCommand::class,
+        ];
     }
 }
