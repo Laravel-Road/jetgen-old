@@ -25,6 +25,7 @@ class SchemaParser extends AbstractSintaxBuilder
 
             if ($this->fieldNeedsForeignConstraint($segments)) {
                 unset($segments['options']['foreign']);
+                unset($segments['options']['constrained']);
 
                 $this->addField($segments);
 
@@ -120,6 +121,14 @@ class SchemaParser extends AbstractSintaxBuilder
             $this->getTableNameFromForeignKey($segments['name'])
         );
 
+        if (in_array($segments['type'], config('jetgen.foreign_types'))) {
+            $string = sprintf(
+                "%s:foreign:references('id'):on('%s')",
+                $segments['name'],
+                $this->getTableNameFromForeignKey($segments['name'])
+            );
+        }
+
         $this->addField($this->parseSegments($string));
     }
 
@@ -138,6 +147,8 @@ class SchemaParser extends AbstractSintaxBuilder
      */
     private function fieldNeedsForeignConstraint(array $segments): bool
     {
-        return array_key_exists('foreign', $segments['options']);
+        return
+            array_key_exists('foreign', $segments['options'])
+            || in_array($segments['type'], config('jetgen.foreign_types'));
     }
 }

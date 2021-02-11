@@ -59,7 +59,7 @@ class AbstractSintaxBuilder
      */
     protected function hasForeignConstraint(array $field): bool
     {
-        return in_array($field['type'], $this->foreignTypes);
+        return 'foreign' === $field['type'];
     }
 
     /**
