@@ -63,7 +63,7 @@ class MigrationCommand extends AbstractCommand implements Replaceable
     public function getPath(): string
     {
         $filename = date('Y_m_d_His') . '_'. Str::snake($this->className);
-        return database_path("migration/{$filename}.php");
+        return database_path("migrations/{$filename}.php");
     }
 
     /**
