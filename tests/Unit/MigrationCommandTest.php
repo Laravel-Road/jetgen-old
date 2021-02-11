@@ -1,7 +1,8 @@
 <?php
 
-namespace LaravelRoad\JetGen\Tests\Unit\Migration;
+namespace LaravelRoad\JetGen\Tests\Unit;
 
+use Illuminate\Filesystem\Filesystem;
 use LaravelRoad\JetGen\Commands\MigrationCommand;
 use LaravelRoad\JetGen\Tests\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -11,6 +12,14 @@ use Symfony\Component\Console\Input\ArrayInput;
  */
 class MigrationCommandTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $file = new Filesystem;
+        $file->cleanDirectory(database_path("migrations"));
+    }
+
     /**
      * @group run
      * @test
@@ -47,7 +56,7 @@ class MigrationCommandTest extends TestCase
         $migrationCommand->setNames('post');
 
         $this->assertEquals(
-            file_get_contents(__DIR__ . '/../../../storage/tests/migration_posts_table.compiled'),
+            file_get_contents(__DIR__ . '/../../storage/tests/migration_posts_table.compiled'),
             $migrationCommand->compileStub()
         );
     }
