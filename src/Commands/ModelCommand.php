@@ -85,7 +85,11 @@ class ModelCommand extends AbstractCommand implements Replaceable
             $schema = (new SchemaParser())->parse($schema);
         }
 
-        $stub = (new ModelSyntaxBuilder())->create($schema);
+        $schema = (new ModelSyntaxBuilder())->create($schema);
+
+        $stub = str_replace(['{{column}}', '{{foreign}}'], $schema, $stub);
+//        $stub = str_replace("\n\n", "\n", $stub);
+        $stub = str_replace(str_repeat(' ', 4) . "\n", "\n", $stub);
 
         return $this;
     }
